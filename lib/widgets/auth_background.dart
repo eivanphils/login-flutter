@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AuthBackground extends StatelessWidget {
-  const AuthBackground({Key? key}) : super(key: key);
+  final Widget child;
+
+  const AuthBackground({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,37 +13,14 @@ class AuthBackground extends StatelessWidget {
       child: Stack(
         children: [
           const _GreenBox(),
-
           const _HeaderIcon(),
-
-          Align(
-            child: Container(
-              width: 300,
-              height: 350,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.blue,
-                boxShadow: [
-                  _boxShadow()
-                
-                ]
-              ),
-            )
-          )
-         
+          child
         ],
       ),
     );
   }
 
-  BoxShadow _boxShadow() {
-    return const BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.2),
-                  blurRadius: 4,
-                  spreadRadius: 1,
-                  offset: Offset(0, 1.5)
-                );
-  }
+
 }
 
 class _HeaderIcon extends StatelessWidget {
@@ -55,7 +34,7 @@ class _HeaderIcon extends StatelessWidget {
       child: Container(
         width: double.infinity,
         margin: const EdgeInsets.only(top: 50),
-        child: const Image(          
+        child: const Image(
           image: AssetImage('assets/logo-klap.png'),
           height: 100,
         ),
@@ -77,32 +56,56 @@ class _GreenBox extends StatelessWidget {
       decoration: _greenBackground(),
       child: Stack(
         children: const [
-
-          Positioned(child: _Bubble(), top: 90, left: 30,),
-          Positioned(child: _Bubble(), top: 40, left: 180,),
-          Positioned(child: _Bubble(), top: 300, left: 190,),
-          Positioned(child: _Bubble(), top: -40, left: -30,),
-          Positioned(child: _Bubble(), top: -50, right: -20,),
-          Positioned(child: _Bubble(), bottom: -50, left: -20,),
-          Positioned(child: _Bubble(), bottom: 60, right: -60,),
+          Positioned(
+            child: _Bubble(),
+            top: 90,
+            left: 30,
+          ),
+          Positioned(
+            child: _Bubble(),
+            top: 40,
+            left: 180,
+          ),
+          Positioned(
+            child: _Bubble(),
+            top: 300,
+            left: 190,
+          ),
+          Positioned(
+            child: _Bubble(),
+            top: -40,
+            left: -30,
+          ),
+          Positioned(
+            child: _Bubble(),
+            top: -50,
+            right: -20,
+          ),
+          Positioned(
+            child: _Bubble(),
+            bottom: -50,
+            left: -20,
+          ),
+          Positioned(
+            child: _Bubble(),
+            bottom: 60,
+            right: -60,
+          ),
         ],
       ),
     );
   }
 
   BoxDecoration _greenBackground() => const BoxDecoration(
-    gradient: LinearGradient(
-      colors: [
+          gradient: LinearGradient(colors: [
         Color.fromRGBO(38, 208, 124, 1),
         Color.fromRGBO(0, 194, 135, 1),
         Color.fromRGBO(0, 179, 143, 1),
-      ]
-    )
-  );
+      ]));
 }
 
 class _Bubble extends StatelessWidget {
-  const _Bubble({ Key? key }) : super(key: key);
+  const _Bubble({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -110,8 +113,8 @@ class _Bubble extends StatelessWidget {
       width: 100,
       height: 100,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(100),
-        color: const Color.fromRGBO(255, 255, 255, 0.11)),
+          borderRadius: BorderRadius.circular(100),
+          color: const Color.fromRGBO(255, 255, 255, 0.11)),
     );
   }
 }
