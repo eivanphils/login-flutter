@@ -12,6 +12,8 @@ class AuthBackground extends StatelessWidget {
         children: [
           const _GreenBox(),
 
+          const _HeaderIcon(),
+
           Align(
             child: Container(
               width: 300,
@@ -21,6 +23,7 @@ class AuthBackground extends StatelessWidget {
                 color: Colors.blue,
                 boxShadow: [
                   _boxShadow()
+                
                 ]
               ),
             )
@@ -38,6 +41,26 @@ class AuthBackground extends StatelessWidget {
                   spreadRadius: 1,
                   offset: Offset(0, 1.5)
                 );
+  }
+}
+
+class _HeaderIcon extends StatelessWidget {
+  const _HeaderIcon({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        width: double.infinity,
+        margin: const EdgeInsets.only(top: 50),
+        child: const Image(          
+          image: AssetImage('assets/logo-klap.png'),
+          height: 100,
+        ),
+      ),
+    );
   }
 }
 
