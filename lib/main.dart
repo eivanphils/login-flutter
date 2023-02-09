@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:login_flutter/screens/screens.dart';
+import 'package:login_flutter/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginScreen.routeName: (_) => const LoginScreen(),
         HomeScreen.routeName: (_) => const HomeScreen()
-      }
+      },
+      theme: AppTheme.lightTheme
     );
   }
 }
