@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
-import 'package:login_flutter/screens/home_screen.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:login_flutter/screens/screens.dart';
 import 'package:login_flutter/providers/login_form_provider.dart';
 import 'package:login_flutter/theme/app_theme.dart';
 import 'package:login_flutter/ui/input_decorations.dart';
@@ -18,40 +17,40 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: AuthBackground(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 250,
-            ),
-            CardContainer(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 20,
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      'Bienvenido nuevamente',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const _LoginForm(),
-                  ],
+      body: AuthBackground(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 250,
+              ),
+              CardContainer(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Bienvenido nuevamente',
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const _LoginForm(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            const RegisterText()
-          ],
+              const SizedBox(
+                height: 30,
+              ),
+              const RegisterText()
+            ],
+          ),
         ),
-      ),
-    ));
+      ));
   }
 }
 
@@ -62,45 +61,22 @@ class RegisterText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, RegisterScreen.routeName),
+      child: RichText(
+        text: const TextSpan(
           text: '¿No tienes cuenta? ',
-          style: const TextStyle(
+          style: TextStyle(
               fontSize: 15,
               color: AppTheme.secondaryColor,
               fontWeight: FontWeight.w600),
-          children: const <TextSpan>[
+          children: <TextSpan>[
             TextSpan(
                 text: 'Regístrate',
                 style: TextStyle(color: AppTheme.primaryColor))
           ],
-          recognizer: TapGestureRecognizer()..onTap = () => print('click')),
-    );
-  }
-}
-
-class SendButton extends StatelessWidget {
-  const SendButton({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final loginForm = Provider.of<LoginFormProvider>(context);
-
-    return ElevatedButton(
-      onPressed: () {
-        if (!loginForm.isValidForm()) return;
-        Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-      },
-      child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 85, vertical: 15),
-          child: Text('Enviar'.toUpperCase())),
-      style: ElevatedButton.styleFrom(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          primary: AppTheme.primaryColor,
-          elevation: 0),
+        ),
+      ),
     );
   }
 }
@@ -157,7 +133,31 @@ class _LoginForm extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            const SendButton()
+            loginForm.isLoading
+                ? const CircularProgressIndicator(
+                    color: AppTheme.primaryColor,
+                  )
+                : ElevatedButton(
+                    onPressed: () async {
+                      FocusScope.of(context).unfocus();
+
+                      if (!loginForm.isValidForm()) return;
+
+                      loginForm.isLoading = true;
+                      await Future.delayed(const Duration(seconds: 3));
+                      loginForm.isLoading = false;
+
+                      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+                    },
+                    child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 85, vertical: 15),
+                        child: Text('Enviar'.toUpperCase())),
+                    style: ElevatedButton.styleFrom(
+                        shape:
+                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        primary: AppTheme.primaryColor,
+                        elevation: 0),
+                  )
           ],
         ),
       ),

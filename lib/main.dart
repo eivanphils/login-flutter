@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
       initialRoute: LoginScreen.routeName,
       routes: {
         LoginScreen.routeName: (_) => const LoginScreen(),
-        HomeScreen.routeName: (_) => const HomeScreen()
+        HomeScreen.routeName: (_) => const HomeScreen(),
+        RegisterScreen.routeName: (_) => const RegisterScreen()
       },
       theme: AppTheme.lightTheme
     );
