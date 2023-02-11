@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:login_flutter/screens/home_screen.dart';
 
+import 'package:provider/provider.dart';
+
+import 'package:login_flutter/providers/login_form_provider.dart';
 import 'package:login_flutter/theme/app_theme.dart';
 import 'package:login_flutter/ui/input_decorations.dart';
 import 'package:login_flutter/utils/rut_validator.dart';
@@ -36,10 +40,6 @@ class LoginScreen extends StatelessWidget {
                       height: 20,
                     ),
                     const _LoginForm(),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    const SendButton(),
                   ],
                 ),
               ),
@@ -86,8 +86,13 @@ class SendButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loginForm = Provider.of<LoginFormProvider>(context);
+
     return ElevatedButton(
-      onPressed: () => print('click'),
+      onPressed: () {
+        if (!loginForm.isValidForm()) return;
+        Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+      },
       child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 85, vertical: 15),
           child: Text('Enviar'.toUpperCase())),
@@ -105,9 +110,12 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loginForm = Provider.of<LoginFormProvider>(context);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Form(
+        key: loginForm.formKey,
         child: Column(
           children: [
             TextFormField(
@@ -119,6 +127,7 @@ class _LoginForm extends StatelessWidget {
                   label: 'RUT',
                   prefixIcon: Icons.person),
               autovalidateMode: AutovalidateMode.onUserInteraction,
+              onChanged: (value) => loginForm.rut = value,
               validator: (value) {
                 if (!RutValidator.isValidRut(value!)) {
                   return 'Por favor ingrese un RUT válido';
@@ -140,10 +149,15 @@ class _LoginForm extends StatelessWidget {
                   label: 'Clave',
                   prefixIcon: Icons.password),
               autovalidateMode: AutovalidateMode.onUserInteraction,
+              onChanged: (value) => loginForm.password = value,
               validator: (value) {
                 return value!.length < 4 ? 'La clave no es válida' : null;
               },
             ),
+            const SizedBox(
+              height: 30,
+            ),
+            const SendButton()
           ],
         ),
       ),
