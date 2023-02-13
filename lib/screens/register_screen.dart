@@ -37,7 +37,7 @@ class RegisterScreen extends StatelessWidget {
 
                           await Future.delayed(const Duration(seconds: 3));
 
-                          Navigator.pushNamed(context, LoginScreen.routeName);
+                          Navigator.pushReplacementNamed(context, LoginScreen.routeName);
                         },
                         child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 15),
