@@ -17,43 +17,43 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AuthBackground(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 250,
-              ),
-              CardContainer(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 20,
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Bienvenido nuevamente',
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      ChangeNotifierProvider(
-                        create: (_) => LoginFormProvider(),
-                        child: const _LoginForm(),
-                      )
-                    ],
-                  ),
+        body: AuthBackground(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 250,
+            ),
+            CardContainer(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 20,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      'Bienvenido nuevamente',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ChangeNotifierProvider(
+                      create: (_) => LoginFormProvider(),
+                      child: const _LoginForm(),
+                    )
+                  ],
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
-              const RegisterText()
-            ],
-          ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            const RegisterText()
+          ],
         ),
-      ));
+      ),
+    ));
   }
 }
 
@@ -97,16 +97,12 @@ class _LoginForm extends StatelessWidget {
         key: loginForm.formKey,
         child: Column(
           children: [
-            TextFormField(
-              autocorrect: false,
-              cursorColor: AppTheme.primaryColor,
+            CustomInputField(
+              prefixIcon: Icons.person,
+              labelText: 'RUT',
+              hintText: 'Ingresa tu RUT',
               keyboardType: TextInputType.text,
-              decoration: InputDecorations.authInputDecoration(
-                  hintText: 'Ingresa tu RUT',
-                  label: 'RUT',
-                  prefixIcon: Icons.person),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              onChanged: (value) => loginForm.rut = value,
+              onChange: (value) => loginForm.rut = value!,
               validator: (value) {
                 if (!RutValidator.isValidRut(value!)) {
                   return 'Por favor ingrese un RUT válido';
@@ -114,25 +110,24 @@ class _LoginForm extends StatelessWidget {
                 return null;
               },
             ),
+
             const SizedBox(
               height: 12,
             ),
-            TextFormField(
-              autocorrect: false,
-              cursorColor: AppTheme.primaryColor,
+
+            CustomInputField(
+              prefixIcon: Icons.password,
+              labelText: 'Clave',
+              hintText: 'Ingresa tu clave',
               obscureText: true,
               keyboardType: TextInputType.number,
               maxLength: 4,
-              decoration: InputDecorations.authInputDecoration(
-                  hintText: 'Ingresa tu clave',
-                  label: 'Clave',
-                  prefixIcon: Icons.password),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              onChanged: (value) => loginForm.password = value,
+              onChange: (value) => loginForm.password = value!,
               validator: (value) {
                 return value!.length < 4 ? 'La clave no es válida' : null;
               },
             ),
+
             const SizedBox(
               height: 30,
             ),
@@ -150,14 +145,16 @@ class _LoginForm extends StatelessWidget {
                       await Future.delayed(const Duration(seconds: 3));
                       loginForm.isLoading = false;
 
-                      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+                      Navigator.pushReplacementNamed(
+                          context, HomeScreen.routeName);
                     },
                     child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 85, vertical: 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 85, vertical: 15),
                         child: Text('Enviar'.toUpperCase())),
                     style: ElevatedButton.styleFrom(
-                        shape:
-                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
                         primary: AppTheme.primaryColor,
                         elevation: 0),
                   )
