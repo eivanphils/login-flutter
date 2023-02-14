@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:login_flutter/screens/screens.dart';
 import 'package:login_flutter/providers/login_form_provider.dart';
 import 'package:login_flutter/theme/app_theme.dart';
-import 'package:login_flutter/ui/input_decorations.dart';
 import 'package:login_flutter/utils/rut_validator.dart';
 import 'package:login_flutter/widgets/widgets.dart';
 
@@ -101,7 +100,6 @@ class _LoginForm extends StatelessWidget {
               prefixIcon: Icons.person,
               labelText: 'RUT',
               hintText: 'Ingresa tu RUT',
-              keyboardType: TextInputType.text,
               onChange: (value) => loginForm.rut = value!,
               validator: (value) {
                 if (!RutValidator.isValidRut(value!)) {
