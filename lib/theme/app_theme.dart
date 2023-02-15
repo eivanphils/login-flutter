@@ -7,6 +7,12 @@ class AppTheme {
   static const double radius = 15;
 
   static ThemeData lightTheme = ThemeData.light().copyWith(
+    // AppBar
+    appBarTheme: const AppBarTheme(
+      color: primaryColor,
+      elevation: 0
+    ),
+
     // Inputs
     inputDecorationTheme: const InputDecorationTheme(
     floatingLabelStyle: TextStyle(color: primaryColor),
