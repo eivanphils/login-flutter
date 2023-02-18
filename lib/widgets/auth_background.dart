@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_flutter/theme/app_theme.dart';
 
 class AuthBackground extends StatelessWidget {
   final Widget child;
@@ -35,7 +36,7 @@ class _HeaderIcon extends StatelessWidget {
         width: double.infinity,
         margin: const EdgeInsets.only(top: 50),
         child: const Image(
-          image: AssetImage('assets/logo-klap.png'),
+          image: AssetImage(AppTheme.logoIcon),
           height: 100,
         ),
       ),
@@ -97,11 +98,7 @@ class _GreenBox extends StatelessWidget {
   }
 
   BoxDecoration _greenBackground() => const BoxDecoration(
-          gradient: LinearGradient(colors: [
-        Color.fromRGBO(38, 208, 124, 1),
-        Color.fromRGBO(0, 194, 135, 1),
-        Color.fromRGBO(0, 179, 143, 1),
-      ]));
+          gradient: LinearGradient(colors: AppTheme.linearGradient));
 }
 
 class _Bubble extends StatelessWidget {
