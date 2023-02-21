@@ -38,4 +38,13 @@ class AppTheme {
             borderRadius: BorderRadius.all(Radius.circular(radius))),
       ));
       // AppBar
+
+
+  static BoxShadow boxShadow() {
+    return const BoxShadow(
+        color: Color.fromRGBO(0, 0, 0, 0.2),
+        blurRadius: 4,
+        spreadRadius: 1,
+        offset: Offset(0, 1.5));
+  }
 }

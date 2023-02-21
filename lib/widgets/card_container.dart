@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:login_flutter/theme/app_theme.dart';
+
 class CardContainer extends StatelessWidget {
   final Widget child;
   const CardContainer({Key? key, required this.child}) : super(key: key);
@@ -14,17 +16,11 @@ class CardContainer extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Colors.white,
-            boxShadow: [_boxShadow()]),
+            boxShadow: [AppTheme.boxShadow()]),
         child: child,
       ),
     );
   }
 
-  BoxShadow _boxShadow() {
-    return const BoxShadow(
-        color: Color.fromRGBO(0, 0, 0, 0.2),
-        blurRadius: 4,
-        spreadRadius: 1,
-        offset: Offset(0, 1.5));
-  }
+
 }
