@@ -28,6 +28,7 @@ class CustomInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: obscureText,
       autocorrect: false,
       cursorColor: AppTheme.primaryColor,
       keyboardType: keyboardType ?? TextInputType.text,
