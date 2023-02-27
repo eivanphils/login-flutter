@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:login_flutter/screens/screens.dart';
 import 'package:login_flutter/theme/app_theme.dart';
 
 class CardProduct extends StatelessWidget {
@@ -9,27 +10,30 @@ class CardProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
-      decoration: _cardBorders(),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(AppTheme.radius),
-        child: Stack(
-          alignment: Alignment.bottomLeft,
-          children: [
-            const SizedBox(
-              height: double.infinity,
-              child: _BackgroundImage()
-            ),
-
-            // productName
-            _ProductDetail(size: size),
-
-            // price
-            _PriceTag(size: size),
-
-            // No available
-            _NotAvailable(size: size)
-          ]
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, ProductScreen.routeName),
+      child: Container(
+        decoration: _cardBorders(),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(AppTheme.radius),
+          child: Stack(
+            alignment: Alignment.bottomLeft,
+            children: [
+              const SizedBox(
+                height: double.infinity,
+                child: _BackgroundImage()
+              ),
+    
+              // productName
+              _ProductDetail(size: size),
+    
+              // price
+              _PriceTag(size: size),
+    
+              // No available
+              _NotAvailable(size: size)
+            ]
+          ),
         ),
       ),
     );

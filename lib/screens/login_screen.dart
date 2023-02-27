@@ -17,41 +17,41 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: AuthBackground(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 250,
-            ),
-            CardContainer(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 20,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 250,
                 ),
-                child: Column(
-                  children: [
-                    Text(
-                      'Bienvenido nuevamente',
-                      style: Theme.of(context).textTheme.headline6,
+                CardContainer(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 20,
                     ),
-                    const SizedBox(
-                      height: 20,
+                    child: Column(
+                      children: [
+                        Text(
+                          'Bienvenido nuevamente',
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        ChangeNotifierProvider(
+                          create: (_) => LoginFormProvider(),
+                          child: const _LoginForm(),
+                        )
+                      ],
                     ),
-                    ChangeNotifierProvider(
-                      create: (_) => LoginFormProvider(),
-                      child: const _LoginForm(),
-                    )
-                  ],
+                  ),
                 ),
-              ),
+                const SizedBox(
+                  height: 30,
+                ),
+                const RegisterText()
+              ],
             ),
-            const SizedBox(
-              height: 30,
-            ),
-            const RegisterText()
-          ],
-        ),
-      ),
+          ),
     ));
   }
 }

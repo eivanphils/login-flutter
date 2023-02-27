@@ -7,6 +7,7 @@ class CustomInputField extends StatelessWidget {
   final IconData? prefixIcon;
   final TextInputType? keyboardType;
   final int? maxLength;
+  final int? maxLine;
   final bool obscureText;
   final String labelText;
   final String hintText;
@@ -18,6 +19,7 @@ class CustomInputField extends StatelessWidget {
     this.prefixIcon,
     this.keyboardType,
     this.maxLength,
+    this.maxLine,
     this.obscureText = false,
     required this.labelText,
     required this.hintText,
@@ -28,6 +30,7 @@ class CustomInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLine,
       obscureText: obscureText,
       autocorrect: false,
       cursorColor: AppTheme.primaryColor,
