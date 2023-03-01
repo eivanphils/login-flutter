@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'package:login_flutter/models/product.dart';
 import 'package:login_flutter/screens/screens.dart';
 import 'package:login_flutter/theme/app_theme.dart';
 
 class CardProduct extends StatelessWidget {
-  final int productId;
-  const CardProduct({Key? key, required this.productId}) : super(key: key);
+  final Product product;
+  const CardProduct({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,54 +17,61 @@ class CardProduct extends StatelessWidget {
         decoration: _cardBorders(),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(AppTheme.radius),
-          child: Stack(
-            alignment: Alignment.bottomLeft,
-            children: [
-              const SizedBox(
-                height: double.infinity,
-                child: _BackgroundImage()
-              ),
-    
-              // productName
-              _ProductDetail(size: size),
-    
-              // price
-              _PriceTag(size: size),
-    
-              // No available
-              _NotAvailable(size: size)
-            ]
-          ),
+          child: Stack(alignment: Alignment.bottomLeft, children: [
+            SizedBox(
+              height: double.infinity,
+              child: _BackgroundImage(
+                product: product,
+              )
+            ),
+
+            // productName
+            _ProductDetail(
+              size: size,
+              product: product,
+            ),
+
+            // price
+            _PriceTag(size: size, product: product,),
+
+            // No available
+            _NotAvailable(size: size)
+          ]),
         ),
       ),
     );
   }
 
   BoxDecoration _cardBorders() => BoxDecoration(
-    boxShadow: [AppTheme.boxShadow()],
-    borderRadius: BorderRadius.circular(AppTheme.radius),
-  );
+        boxShadow: [AppTheme.boxShadow()],
+        borderRadius: BorderRadius.circular(AppTheme.radius),
+      );
 }
 
 class _BackgroundImage extends StatelessWidget {
+  final Product product;
+
   const _BackgroundImage({
     Key? key,
+    required this.product
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const FadeInImage(
-      placeholder: AssetImage('assets/loading.gif'),
-      image: NetworkImage('https://via.placeholder.com/200x200'),
-      fit: BoxFit.cover
-    );
+    return FadeInImage(
+        placeholder: const AssetImage('assets/loading.gif'),
+        image: NetworkImage(product.picture!),
+        fit: BoxFit.cover);
   }
 }
 
 class _ProductDetail extends StatelessWidget {
+  final Product product;
+
   const _ProductDetail({
     Key? key,
     required this.size,
+    required this.product,
   }) : super(key: key);
 
   final Size size;
@@ -79,16 +87,20 @@ class _ProductDetail extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Text(
-            'Iphone 10',
-            style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
+            product.name,
+            style: const TextStyle(
+                fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
           Text(
-            'descripcion general',
-            style: TextStyle(fontSize: 15, color: Colors.white,),
+            product.description,
+            style: const TextStyle(
+              fontSize: 15,
+              color: Colors.white,
+            ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -98,18 +110,17 @@ class _ProductDetail extends StatelessWidget {
   }
 
   BoxDecoration _boxDecoration() => const BoxDecoration(
-    color: AppTheme.primaryColor,
-    borderRadius: BorderRadius.only(
-      topRight: Radius.circular(AppTheme.radius),
-    )
-  );
+      color: AppTheme.primaryColor,
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(AppTheme.radius),
+      ));
 }
 
 class _PriceTag extends StatelessWidget {
-  const _PriceTag({
-    Key? key,
-    required this.size,
-  }) : super(key: key);
+  final Product product;
+
+  const _PriceTag({Key? key, required this.size, required this.product})
+      : super(key: key);
 
   final Size size;
 
@@ -122,24 +133,22 @@ class _PriceTag extends StatelessWidget {
         height: 40,
         width: size.width * 0.20,
         decoration: _boxDecoration(),
-        child: const Center(
-          child: Text(
-            '\$100.000',
-            style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.w500),
-          )
-        ),
+        child: Center(
+            child: Text(
+          '\$${product.price}',
+          style: const TextStyle(
+              fontSize: 15, color: Colors.white, fontWeight: FontWeight.w500),
+        )),
       ),
     );
   }
 
   BoxDecoration _boxDecoration() => const BoxDecoration(
-    color: AppTheme.primaryColor,
-    borderRadius: BorderRadius.only(
-      bottomLeft: Radius.circular(AppTheme.radius),
-    )
-  );
+      color: AppTheme.primaryColor,
+      borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(AppTheme.radius),
+      ));
 }
-
 
 class _NotAvailable extends StatelessWidget {
   const _NotAvailable({
@@ -160,19 +169,18 @@ class _NotAvailable extends StatelessWidget {
         width: size.width * 0.25,
         decoration: _boxDecoration(),
         child: const Center(
-          child: Text(
-            'No disponible',
-            style: TextStyle(fontSize: 13, color: Colors.white, fontWeight: FontWeight.w500),
-          )
-        ),
+            child: Text(
+          'No disponible',
+          style: TextStyle(
+              fontSize: 13, color: Colors.white, fontWeight: FontWeight.w500),
+        )),
       ),
     );
   }
 
   BoxDecoration _boxDecoration() => const BoxDecoration(
-    color: Colors.yellow,
-    borderRadius: BorderRadius.only(
-      bottomRight: Radius.circular(AppTheme.radius),
-    )
-  );
+      color: Colors.yellow,
+      borderRadius: BorderRadius.only(
+        bottomRight: Radius.circular(AppTheme.radius),
+      ));
 }

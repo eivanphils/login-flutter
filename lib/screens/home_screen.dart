@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+
+import 'package:login_flutter/models/product.dart';
+import 'package:login_flutter/services/services.dart';
 import 'package:login_flutter/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,12 +13,16 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productsService = Provider.of<ProductsService>(context);
+
+    final List<Product> products = productsService.products;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Productos')),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const CardSwiper(),
+            CardSwiper(products: products,),
             const Padding(
               padding: EdgeInsets.only(bottom: 20),
               child: Text('Productos Destacados'),
@@ -22,15 +30,14 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: 300,
               child: ListView.builder(
-                itemCount: 10,
+                itemCount: products.length,
                 itemBuilder: (_, int index) {
                   return Container(
-                    width: 250,
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    child: CardProduct(
-                      productId: index,
-                    )
-                  );
+                      width: 250,
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      child: CardProduct(
+                        product: products[index],
+                      ));
                 },
                 scrollDirection: Axis.horizontal,
               ),
