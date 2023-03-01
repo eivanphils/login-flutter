@@ -120,6 +120,7 @@ class _LoginForm extends StatelessWidget {
               obscureText: true,
               keyboardType: TextInputType.number,
               maxLength: 4,
+              maxLine: 1,
               onChange: (value) => loginForm.password = value!,
               validator: (value) {
                 return value!.length < 4 ? 'La clave no es válida' : null;
