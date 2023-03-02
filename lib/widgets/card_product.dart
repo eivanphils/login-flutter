@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+
 import 'package:login_flutter/models/product.dart';
 import 'package:login_flutter/screens/screens.dart';
+import 'package:login_flutter/services/services.dart';
 import 'package:login_flutter/theme/app_theme.dart';
 
 class CardProduct extends StatelessWidget {
@@ -11,17 +14,23 @@ class CardProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final productService = Provider.of<ProductsService>(context);
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, ProductScreen.routeName),
+      onTap: () {
+        // se realiza una copia del objeto para romper la referencia del mismo
+        productService.selectedProduct = product.copy();
+        Navigator.pushNamed(context, ProductScreen.routeName);
+      },
       child: Container(
         decoration: _cardBorders(),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(AppTheme.radius),
           child: Stack(alignment: Alignment.bottomLeft, children: [
             SizedBox(
-              height: double.infinity,
-              child: _BackgroundImage(product.picture,)
-            ),
+                height: double.infinity,
+                child: _BackgroundImage(
+                  product.picture,
+                )),
 
             // productName
             _ProductDetail(
@@ -30,11 +39,13 @@ class CardProduct extends StatelessWidget {
             ),
 
             // price
-            _PriceTag(size: size, product: product,),
+            _PriceTag(
+              size: size,
+              product: product,
+            ),
 
             // No available
-            if(!product.available)
-              _NotAvailable(size: size)
+            if (!product.available) _NotAvailable(size: size)
           ]),
         ),
       ),
@@ -50,20 +61,18 @@ class CardProduct extends StatelessWidget {
 class _BackgroundImage extends StatelessWidget {
   final String? imageUrl;
 
-  const _BackgroundImage(
-    this.imageUrl,
-    {Key? key}) : super(key: key);
+  const _BackgroundImage(this.imageUrl, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return imageUrl == null
-    ? const Image(
-      image: AssetImage('assets/no-image.jpg'),
-      fit: BoxFit.cover,
-    )
-    : FadeInImage(
+    return FadeInImage(
         placeholder: const AssetImage('assets/loading.gif'),
-        image: NetworkImage(imageUrl!),
+        image: NetworkImage(imageUrl.toString()),
+        imageErrorBuilder: (BuildContext context, Object obj, stackTrace) =>
+            const Image(
+              image: AssetImage('assets/no-image.jpg'),
+              fit: BoxFit.cover,
+            ),
         fit: BoxFit.cover);
   }
 }
@@ -154,7 +163,6 @@ class _PriceTag extends StatelessWidget {
 }
 
 class _NotAvailable extends StatelessWidget {
-
   const _NotAvailable({
     Key? key,
     required this.size,
@@ -173,12 +181,11 @@ class _NotAvailable extends StatelessWidget {
         width: size.width * 0.25,
         decoration: _boxDecoration(),
         child: const Center(
-          child: Text(
-            'No disponible',
-            style: TextStyle(
-                fontSize: 13, color: Colors.white, fontWeight: FontWeight.w500),
-          )
-        ),
+            child: Text(
+          'No disponible',
+          style: TextStyle(
+              fontSize: 13, color: Colors.white, fontWeight: FontWeight.w500),
+        )),
       ),
     );
   }

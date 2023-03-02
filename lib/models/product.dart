@@ -15,6 +15,7 @@ class Product {
     required this.name,
     this.picture,
     required this.price,
+    this.id
   });
 
   bool available;
@@ -39,4 +40,14 @@ class Product {
         "picture": picture,
         "price": price,
       };
+
+  // se usa este metodo para romper la referencia
+  Product copy() => Product(
+    available: available,
+    description: description,
+    name: name,
+    price: price,
+    picture: picture,
+    id: id
+  );
 }

@@ -10,6 +10,8 @@ class ProductsService extends ChangeNotifier {
   final String _baseUrl = 'flutter-apps-50027-default-rtdb.firebaseio.com';
 
   final List<Product> products = [];
+  // Se le asigna el tipo late ya que luego sera llenada
+  late Product selectedProduct;
   bool isLoading = false;
 
   ProductsService() {
