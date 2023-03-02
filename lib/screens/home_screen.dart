@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
+import 'package:login_flutter/screens/screens.dart';
 import 'package:login_flutter/models/product.dart';
 import 'package:login_flutter/services/services.dart';
 import 'package:login_flutter/widgets/widgets.dart';
@@ -17,12 +18,14 @@ class HomeScreen extends StatelessWidget {
 
     final List<Product> products = productsService.products;
 
+    if (productsService.isLoading) return const LoadingScreen();
+
     return Scaffold(
       appBar: AppBar(title: const Text('Productos')),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            CardSwiper(products: products,),
+            CardSwiper(products),
             const Padding(
               padding: EdgeInsets.only(bottom: 20),
               child: Text('Productos Destacados'),
@@ -35,9 +38,7 @@ class HomeScreen extends StatelessWidget {
                   return Container(
                       width: 250,
                       margin: const EdgeInsets.symmetric(horizontal: 15),
-                      child: CardProduct(
-                        product: products[index],
-                      ));
+                      child: CardProduct(products[index]));
                 },
                 scrollDirection: Axis.horizontal,
               ),

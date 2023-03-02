@@ -10,13 +10,15 @@ class ProductsService extends ChangeNotifier {
   final String _baseUrl = 'flutter-apps-50027-default-rtdb.firebaseio.com';
 
   final List<Product> products = [];
-  bool isLoading = true;
+  bool isLoading = false;
 
   ProductsService() {
     loadProducts();
   }
 
   void loadProducts() async {
+    _notifyConsult(true);
+
     final jsonData = await _getJsonData('products.json');
 
     final Map<String, dynamic> productsMap = json.decode(jsonData);
@@ -28,20 +30,21 @@ class ProductsService extends ChangeNotifier {
       products.add(product);
     });
 
-    print(productsMap);
-    _endConsult();
+    _notifyConsult(false);
   }
 
   Future<Product> getProductById(String id) async {
+    _notifyConsult(true);
+
     final jsonData = await _getJsonData('$id.json');
     final productResponse = productFromJson(jsonData);
-    _endConsult();
+    _notifyConsult(false);
 
     return productResponse;
   }
 
-  void _endConsult() {
-    isLoading = false;
+  void _notifyConsult(bool loading) {
+    isLoading = loading;
     notifyListeners();
   }
 

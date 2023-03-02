@@ -6,7 +6,7 @@ import 'package:login_flutter/theme/app_theme.dart';
 
 class CardProduct extends StatelessWidget {
   final Product product;
-  const CardProduct({Key? key, required this.product}) : super(key: key);
+  const CardProduct(this.product, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +20,7 @@ class CardProduct extends StatelessWidget {
           child: Stack(alignment: Alignment.bottomLeft, children: [
             SizedBox(
               height: double.infinity,
-              child: _BackgroundImage(
-                product: product,
-              )
+              child: _BackgroundImage(product.picture,)
             ),
 
             // productName
@@ -35,7 +33,8 @@ class CardProduct extends StatelessWidget {
             _PriceTag(size: size, product: product,),
 
             // No available
-            _NotAvailable(size: size)
+            if(!product.available)
+              _NotAvailable(size: size)
           ]),
         ),
       ),
@@ -49,18 +48,22 @@ class CardProduct extends StatelessWidget {
 }
 
 class _BackgroundImage extends StatelessWidget {
-  final Product product;
+  final String? imageUrl;
 
-  const _BackgroundImage({
-    Key? key,
-    required this.product
-  }) : super(key: key);
+  const _BackgroundImage(
+    this.imageUrl,
+    {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FadeInImage(
+    return imageUrl == null
+    ? const Image(
+      image: AssetImage('assets/no-image.jpg'),
+      fit: BoxFit.cover,
+    )
+    : FadeInImage(
         placeholder: const AssetImage('assets/loading.gif'),
-        image: NetworkImage(product.picture!),
+        image: NetworkImage(imageUrl!),
         fit: BoxFit.cover);
   }
 }
@@ -151,6 +154,7 @@ class _PriceTag extends StatelessWidget {
 }
 
 class _NotAvailable extends StatelessWidget {
+
   const _NotAvailable({
     Key? key,
     required this.size,
@@ -169,11 +173,12 @@ class _NotAvailable extends StatelessWidget {
         width: size.width * 0.25,
         decoration: _boxDecoration(),
         child: const Center(
-            child: Text(
-          'No disponible',
-          style: TextStyle(
-              fontSize: 13, color: Colors.white, fontWeight: FontWeight.w500),
-        )),
+          child: Text(
+            'No disponible',
+            style: TextStyle(
+                fontSize: 13, color: Colors.white, fontWeight: FontWeight.w500),
+          )
+        ),
       ),
     );
   }
