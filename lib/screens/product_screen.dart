@@ -16,6 +16,7 @@ class ProductScreen extends StatelessWidget {
     final productService = Provider.of<ProductsService>(context);
     return Scaffold(
       body: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
           child: Column(
         children: [
           Stack(
