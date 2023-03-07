@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:provider/provider.dart';
 
@@ -77,7 +78,10 @@ class _ProductScreenBody extends StatelessWidget {
             ],
           )),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => print,
+        onPressed: () {
+          // hide the keyboard when button is selected
+          FocusScope.of(context).unfocus();
+        },
         child: const Icon(Icons.save_rounded),
         backgroundColor: AppTheme.primaryColor,
       ),
@@ -119,6 +123,10 @@ class _ProductForm extends StatelessWidget {
               labelText: 'Precio',
               hintText: '\$150.000',
               keyboardType: TextInputType.number,
+              maxLine: 1,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?'))
+              ],
               initialValue: '${product.price}',
               onChange: (value) {
                 if (int.tryParse(value.toString()) == null) {
@@ -149,11 +157,13 @@ class _ProductForm extends StatelessWidget {
               title: const Text('Disponible'),
               activeColor: AppTheme.primaryColor,
               value: product.available,
-              onChanged: (value) {
-                product.available = value;
-                productForm.notifyListeners();
+              // onChanged: (value) {
+              //   product.available = value;
+              //   productForm.notifyListeners();
                 
-              }),
+              // },
+              onChanged: productForm.updateAvailability
+              ),
         ],
       )),
     );

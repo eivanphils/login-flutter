@@ -10,6 +10,11 @@ class ProductFormProvider extends ChangeNotifier {
   // Se debe crear o se reciba la instacia del provider se debe enviar un producto
   ProductFormProvider(this.product);
 
+  void updateAvailability(bool value) {
+    product.available = value;
+    notifyListeners();
+  }
+
   bool isValidForm() {
     return formKey.currentState?.validate() ?? false;
   }

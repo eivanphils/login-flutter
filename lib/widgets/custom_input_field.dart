@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:login_flutter/theme/app_theme.dart';
 import 'package:login_flutter/ui/input_decorations.dart';
@@ -9,6 +10,7 @@ class CustomInputField extends StatelessWidget {
   final int? maxLength;
   final int? maxLine;
   final String? initialValue;
+  final List<TextInputFormatter>? inputFormatters;
   final bool obscureText;
   final String labelText;
   final String hintText;
@@ -22,6 +24,7 @@ class CustomInputField extends StatelessWidget {
     this.maxLength,
     this.maxLine,
     this.initialValue,
+    this.inputFormatters,
     this.obscureText = false,
     required this.labelText,
     required this.hintText,
@@ -33,6 +36,7 @@ class CustomInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       initialValue: initialValue,
+      inputFormatters: inputFormatters,
       maxLines: maxLine,
       obscureText: obscureText,
       autocorrect: false,
