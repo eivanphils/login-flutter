@@ -8,6 +8,7 @@ class CustomInputField extends StatelessWidget {
   final TextInputType? keyboardType;
   final int? maxLength;
   final int? maxLine;
+  final String? initialValue;
   final bool obscureText;
   final String labelText;
   final String hintText;
@@ -20,6 +21,7 @@ class CustomInputField extends StatelessWidget {
     this.keyboardType,
     this.maxLength,
     this.maxLine,
+    this.initialValue,
     this.obscureText = false,
     required this.labelText,
     required this.hintText,
@@ -30,6 +32,7 @@ class CustomInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      initialValue: initialValue,
       maxLines: maxLine,
       obscureText: obscureText,
       autocorrect: false,

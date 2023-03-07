@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:login_flutter/screens/screens.dart';
-import 'package:login_flutter/providers/login_form_provider.dart';
+import 'package:login_flutter/providers/providers.dart';
 import 'package:login_flutter/theme/app_theme.dart';
 import 'package:login_flutter/utils/rut_validator.dart';
 import 'package:login_flutter/widgets/widgets.dart';
