@@ -36,9 +36,13 @@ class AppTheme {
             borderRadius: BorderRadius.all(Radius.circular(radius))),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(radius))),
-      ));
-      // AppBar
+      ),
 
+      // FloatingActionButton
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: primaryColor
+      )
+  );
 
   static BoxShadow boxShadow() {
     return const BoxShadow(
