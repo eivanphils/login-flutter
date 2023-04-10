@@ -99,4 +99,16 @@ class ProductsService extends ChangeNotifier {
 
     return product.id!;
   }
+
+  Future deleteProduct(String id) async {
+    final url = Uri.https(_baseUrl, 'products/$id.json');
+    final response = await http.delete(url);
+
+    print(response);
+
+    products.removeWhere((element) => element.id == id);
+
+    notifyListeners();
+    return response;
+  }
 }

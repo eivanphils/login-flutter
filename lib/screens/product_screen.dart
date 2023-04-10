@@ -81,16 +81,35 @@ class _ProductScreenBody extends StatelessWidget {
               )
             ],
           )),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // hide the keyboard when button is selected
-          FocusScope.of(context).unfocus();
-          if (!productForm.isValidForm()) return;
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          if (productForm.product.id != null)
+            FloatingActionButton(
+              heroTag: 'delete',
+              onPressed: () {
+                productService.deleteProduct(productForm.product.id.toString());
+                Navigator.pop(context);
+              },
+              child: const Icon(Icons.delete),
+              backgroundColor: Colors.red,
+            ),
+          const SizedBox(
+            height: 10,
+          ),
+          FloatingActionButton(
+            heroTag: 'save',
+            onPressed: () {
+              // hide the keyboard when button is selected
+              FocusScope.of(context).unfocus();
+              if (!productForm.isValidForm()) return;
 
-          productService.saveOrCreateProduct(productForm.product);
-        },
-        child: const Icon(Icons.save_rounded),
-        backgroundColor: AppTheme.primaryColor,
+              productService.saveOrCreateProduct(productForm.product);
+            },
+            child: const Icon(Icons.save_rounded),
+            backgroundColor: AppTheme.primaryColor,
+          ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
