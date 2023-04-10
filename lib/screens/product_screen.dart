@@ -36,9 +36,13 @@ class _ProductScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productForm = Provider.of<ProductFormProvider>(context);
+
     return Scaffold(
       body: SingleChildScrollView(
           physics: const ClampingScrollPhysics(),
+          // hide keyboard when scrolling
+          // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Column(
             children: [
               Stack(
@@ -81,6 +85,9 @@ class _ProductScreenBody extends StatelessWidget {
         onPressed: () {
           // hide the keyboard when button is selected
           FocusScope.of(context).unfocus();
+          if (!productForm.isValidForm()) return;
+
+          productService.saveOrCreateProduct(productForm.product);
         },
         child: const Icon(Icons.save_rounded),
         backgroundColor: AppTheme.primaryColor,
@@ -104,68 +111,69 @@ class _ProductForm extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
       width: double.infinity,
       child: Form(
+          key: productForm.formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
-        children: [
-          CustomInputField(
-              labelText: 'Nombre',
-              hintText: 'Producto X',
-              initialValue: product.name,
-              onChange: (value) => product.name = value.toString(),
-              validator: (value) {
-                if (value == null || value.length < 1) {
-                  return 'El nombre es obligatorio';
-                }
-              }),
-          const SizedBox(
-            height: 20,
-          ),
-          CustomInputField(
-              labelText: 'Precio',
-              hintText: '\$150.000',
-              keyboardType: TextInputType.number,
-              maxLine: 1,
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?'))
-              ],
-              initialValue: '${product.price}',
-              onChange: (value) {
-                if (int.tryParse(value.toString()) == null) {
-                  product.price = 0;
-                } else {
-                  product.price = int.parse(value.toString());
-                }
-              },
-              validator: (value) => null),
-          const SizedBox(
-            height: 20,
-          ),
-          CustomInputField(
-              labelText: 'Descripción',
-              hintText: 'Producto diseñado para',
-              maxLine: 3,
-              initialValue: product.description,
-              onChange: (value) => product.description = value.toString(),
-              validator: (value) {
-                if (value == null || value.length < 3) {
-                  return 'La descripcion es obligatoria';
-                }
-              }),
-          const SizedBox(
-            height: 20,
-          ),
-          SwitchListTile.adaptive(
-              title: const Text('Disponible'),
-              activeColor: AppTheme.primaryColor,
-              value: product.available,
-              // onChanged: (value) {
-              //   product.available = value;
-              //   productForm.notifyListeners();
-                
-              // },
-              onChanged: productForm.updateAvailability
+            children: [
+              CustomInputField(
+                  labelText: 'Nombre',
+                  hintText: 'Producto X',
+                  initialValue: product.name,
+                  onChange: (value) => product.name = value.toString(),
+                  validator: (value) {
+                    if (value == null || value.length < 1) {
+                      return 'El nombre es obligatorio';
+                    }
+                  }),
+              const SizedBox(
+                height: 20,
               ),
-        ],
-      )),
+              CustomInputField(
+                  labelText: 'Precio',
+                  hintText: '\$150.000',
+                  keyboardType: TextInputType.number,
+                  maxLine: 1,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?'))
+                  ],
+                  initialValue: '${product.price}',
+                  onChange: (value) {
+                    if (int.tryParse(value.toString()) == null) {
+                      product.price = 0;
+                    } else {
+                      product.price = int.parse(value.toString());
+                    }
+                  },
+                  validator: (value) => null),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomInputField(
+                  labelText: 'Descripción',
+                  hintText: 'Producto diseñado para',
+                  maxLine: 3,
+                  initialValue: product.description,
+                  onChange: (value) => product.description = value.toString(),
+                  validator: (value) {
+                    if (value == null || value.length < 3) {
+                      return 'La descripcion es obligatoria';
+                    }
+                  }),
+              const SizedBox(
+                height: 20,
+              ),
+              SwitchListTile.adaptive(
+                  title: const Text('Disponible'),
+                  activeColor: AppTheme.primaryColor,
+                  value: product.available,
+                  // onChanged: (value) {
+                  //   product.available = value;
+                  //   productForm.notifyListeners();
+
+                  // },
+                  onChanged: productForm.updateAvailability),
+            ],
+          )),
     );
   }
 }
