@@ -113,7 +113,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    // TODO: crear una clave custom del boton con bordes
                     _isLoading
                         ? const CircularProgressIndicator(
                             color: AppTheme.primaryColor,
