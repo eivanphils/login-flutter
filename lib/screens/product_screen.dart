@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:login_flutter/providers/providers.dart';
 import 'package:login_flutter/theme/app_theme.dart';
@@ -63,8 +64,18 @@ class _ProductScreenBody extends StatelessWidget {
                       top: 60,
                       right: 20,
                       child: IconButton(
-                        onPressed: () {
+                        onPressed: () async {
                           // TODO: camara
+                          final _picker = ImagePicker();
+                          final XFile? pickedFile = await _picker.pickImage(
+                              source: ImageSource.gallery, imageQuality: 100);
+
+                          if (pickedFile == null) {
+                            print('No se selecciono nada');
+                            return;
+                          }
+
+                          print(pickedFile.path);
                         },
                         icon: const Center(
                             child: Icon(
@@ -111,7 +122,7 @@ class _ProductScreenBody extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
