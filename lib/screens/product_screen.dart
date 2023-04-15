@@ -76,6 +76,9 @@ class _ProductScreenBody extends StatelessWidget {
                           }
 
                           print(pickedFile.path);
+
+                          productService
+                              .udpdateSelectedProductImage(pickedFile.path);
                         },
                         icon: const Center(
                             child: Icon(

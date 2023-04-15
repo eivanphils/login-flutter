@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:login_flutter/theme/app_theme.dart';
@@ -19,24 +21,38 @@ class ProductImage extends StatelessWidget {
         opacity: 0.85,
         child: ClipRRect(
           borderRadius: _bottomBorderRadius(),
-          child: FadeInImage(
-            image: NetworkImage(imageUrl.toString()),
-            placeholder: const AssetImage('assets/loading.gif'),
-            imageErrorBuilder: (BuildContext context, Object obj, stackTrace) =>
-                const Image(
-              image: AssetImage('assets/no-image.jpg'),
-              fit: BoxFit.cover,
-            ),
-            fit: BoxFit.cover,
-          ),
+          child: getImage(imageUrl),
         ),
       ),
     );
   }
 
+  Widget getImage(String? picture) {
+    if (picture == null) {
+      return const Image(
+        image: AssetImage('assets/no-image.jpg'),
+        fit: BoxFit.cover,
+      );
+    }
+
+    if (picture.startsWith('http')) {
+      return FadeInImage(
+        image: NetworkImage(picture),
+        placeholder: const AssetImage('assets/loading.gif'),
+        fit: BoxFit.cover,
+      );
+    }
+
+    return Image.file(
+      File(picture),
+      fit: BoxFit.cover,
+    );
+  }
+
   BoxDecoration _boxDecoration() => BoxDecoration(
-    color: Colors.black,
-      boxShadow: [AppTheme.boxShadow()], borderRadius: _bottomBorderRadius());
+      color: Colors.black,
+      boxShadow: [AppTheme.boxShadow()],
+      borderRadius: _bottomBorderRadius());
 
   BorderRadius _bottomBorderRadius() {
     return const BorderRadius.only(

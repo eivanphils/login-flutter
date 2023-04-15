@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,8 @@ class ProductsService extends ChangeNotifier {
   final List<Product> products = [];
   // Se le asigna el tipo late ya que luego sera llenada
   late Product selectedProduct;
+
+  File? newPictureFile;
   bool isLoading = false;
   bool isSaving = false;
 
@@ -108,5 +111,13 @@ class ProductsService extends ChangeNotifier {
 
     notifyListeners();
     return response;
+  }
+
+  void udpdateSelectedProductImage(String path) {
+    selectedProduct.picture = path;
+    newPictureFile = File.fromUri(Uri(path: path));
+    print(newPictureFile);
+
+    notifyListeners();
   }
 }
