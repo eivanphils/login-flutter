@@ -67,7 +67,7 @@ class _ProductScreenBody extends StatelessWidget {
                         onPressed: () async {
                           final _picker = ImagePicker();
                           final XFile? pickedFile = await _picker.pickImage(
-                              source: ImageSource.gallery, imageQuality: 50);
+                              source: ImageSource.camera, imageQuality: 50);
 
                           if (pickedFile == null) {
                             print('No se selecciono nada');
@@ -112,18 +112,22 @@ class _ProductScreenBody extends StatelessWidget {
           ),
           FloatingActionButton(
             heroTag: 'save',
-            onPressed: () async {
+            onPressed: productService.isSaving
+            ? null
+            : () async {
               // hide the keyboard when button is selected
               FocusScope.of(context).unfocus();
               if (!productForm.isValidForm()) return;
 
               final String? imageUrl = await productService.uploadImage();
-              
-              print(imageUrl);
 
-              productService.saveOrCreateProduct(productForm.product);
+              if (imageUrl != null) productForm.product.picture = imageUrl;
+
+              await productService.saveOrCreateProduct(productForm.product);
             },
-            child: const Icon(Icons.save_rounded),
+            child: productService.isSaving
+            ? const CircularProgressIndicator(color: Colors.white)
+            : const Icon(Icons.save_rounded),
             backgroundColor: AppTheme.primaryColor,
           ),
         ],
