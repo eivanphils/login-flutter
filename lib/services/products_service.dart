@@ -116,8 +116,42 @@ class ProductsService extends ChangeNotifier {
   void udpdateSelectedProductImage(String path) {
     selectedProduct.picture = path;
     newPictureFile = File.fromUri(Uri(path: path));
-    print(newPictureFile);
 
     notifyListeners();
+  }
+
+  Future<String?> uploadImage() async {
+    if (newPictureFile == null) return null;
+
+    isSaving = true;
+    notifyListeners();
+
+    // set uri
+    final url = Uri.parse(
+        'https://api.cloudinary.com/v1_1/dq3pkwpe4/image/upload?upload_preset=ml_default');
+
+    // create http method
+    final uploadImageRequest = http.MultipartRequest('POST', url);
+
+    // set file into field from
+    final file =
+        await http.MultipartFile.fromPath('file', newPictureFile!.path);
+
+    // add file into request
+    uploadImageRequest.files.add(file);
+
+    // send request
+    final streamResponse = await uploadImageRequest.send();
+    final response = await http.Response.fromStream(streamResponse);
+
+    // validation of response
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print('problema con la peticion');
+      return null;
+    }
+
+    // decoded response
+    final decodedData = json.decode(response.body);
+    return decodedData['secure_url'];
   }
 }

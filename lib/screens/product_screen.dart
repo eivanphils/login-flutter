@@ -65,10 +65,9 @@ class _ProductScreenBody extends StatelessWidget {
                       right: 20,
                       child: IconButton(
                         onPressed: () async {
-                          // TODO: camara
                           final _picker = ImagePicker();
                           final XFile? pickedFile = await _picker.pickImage(
-                              source: ImageSource.gallery, imageQuality: 100);
+                              source: ImageSource.gallery, imageQuality: 50);
 
                           if (pickedFile == null) {
                             print('No se selecciono nada');
@@ -113,10 +112,14 @@ class _ProductScreenBody extends StatelessWidget {
           ),
           FloatingActionButton(
             heroTag: 'save',
-            onPressed: () {
+            onPressed: () async {
               // hide the keyboard when button is selected
               FocusScope.of(context).unfocus();
               if (!productForm.isValidForm()) return;
+
+              final String? imageUrl = await productService.uploadImage();
+              
+              print(imageUrl);
 
               productService.saveOrCreateProduct(productForm.product);
             },
