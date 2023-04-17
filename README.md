@@ -28,7 +28,11 @@ La app posee 3 pantallas las cuales son:
 
 Se utiliza https://cloudinary.com para alojar las imagenes de la app.
 
+![Captura de pantalla 2023-04-17 a la(s) 15 08 45](https://user-images.githubusercontent.com/1909869/232591906-122a3bfd-1f4f-4ede-b7c6-6f9a1e9e87c3.png)
+
 Tambien se utiliza https://firebase.google.com/products/realtime-database donde se tiene la base de datos de los productos.
+
+<img width="464" alt="Captura de pantalla 2023-04-17 a la(s) 15 33 09" src="https://user-images.githubusercontent.com/1909869/232591785-f2bf267f-b950-4800-984f-7b2cdaabcc07.png">
 
 ## Paquetes de terceros
 
@@ -69,27 +73,24 @@ Luego el directorio lib
 ## Capturas de pantalla
 
 ### Login:
+![Simulator Screenshot - iPhone 14 Pro Max - 2023-04-17 at 14 24 16](https://user-images.githubusercontent.com/1909869/232591963-2a28d5f9-eeaf-4564-9b02-fbb27cae5b9f.png)
 
-<img src="https://github.com/eivanphils/flutter-design/blob/master/assets/Simulator%20Screen%20Shot%20-%20iPhone%2013%20mini%20-%202022-08-01%20at%2011.58.04.png" width="200">     
+![Simulator Screenshot - iPhone 14 Pro Max - 2023-04-17 at 14 24 23](https://user-images.githubusercontent.com/1909869/232591966-76199b51-5b80-4451-8626-a8e44b79176a.png)
+  
 
 
 ### Home Productos:
-
-<img src="https://github.com/eivanphils/flutter-design/blob/master/assets/Simulator%20Screen%20Shot%20-%20iPhone%2013%20mini%20-%202022-08-01%20at%2011.58.21.png" width="200">     
-
-https://user-images.githubusercontent.com/1909869/182191028-4e498fb0-2283-48ec-872a-fbc5d9bcb00f.mp4
+   
+![Simulator Screenshot - iPhone 14 Pro Max - 2023-04-17 at 14 22 33](https://user-images.githubusercontent.com/1909869/232592051-f90a99b1-6bbb-46ef-b52d-51d6f4646173.png)
 
 
 ### Producto Seleccionado:
 
-<img src="https://github.com/eivanphils/flutter-design/blob/master/assets/Simulator%20Screen%20Shot%20-%20iPhone%2013%20mini%20-%202022-08-01%20at%2011.58.49.png" width="200">     
-
-https://user-images.githubusercontent.com/1909869/182191193-d1e49f1f-d9d8-47c6-85bd-d1ea5f41d7fd.mp4
+![Simulator Screenshot - iPhone 14 Pro Max - 2023-04-17 at 15 35 36](https://user-images.githubusercontent.com/1909869/232592262-89e66285-15c9-45ba-86df-9e9ef3d26e98.png)
 
 
 ### Crear producto:
 
-<img src="https://github.com/eivanphils/flutter-design/blob/master/assets/Simulator%20Screen%20Shot%20-%20iPhone%2013%20mini%20-%202022-08-01%20at%2011.58.49.png" width="200">     
+![Simulator Screenshot - iPhone 14 Pro Max - 2023-04-17 at 15 35 26](https://user-images.githubusercontent.com/1909869/232592310-332f8adf-a6ec-480e-9b1f-4ec0e28b75f0.png)
 
-https://user-images.githubusercontent.com/1909869/182191193-d1e49f1f-d9d8-47c6-85bd-d1ea5f41d7fd.mp4
 
