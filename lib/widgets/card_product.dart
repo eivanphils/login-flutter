@@ -25,8 +25,11 @@ class CardProduct extends StatelessWidget {
         decoration: _cardBorders(),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(AppTheme.radius),
-          child: Stack(alignment: Alignment.bottomLeft, children: [
+          child: Stack(
+            alignment: Alignment.bottomLeft,
+            children: [
             SizedBox(
+                width: 250,
                 height: double.infinity,
                 child: _BackgroundImage(
                   product.picture,
