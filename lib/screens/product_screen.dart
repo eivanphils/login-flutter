@@ -67,7 +67,7 @@ class _ProductScreenBody extends StatelessWidget {
                         onPressed: () async {
                           final _picker = ImagePicker();
                           final XFile? pickedFile = await _picker.pickImage(
-                              source: ImageSource.camera, imageQuality: 50);
+                              source: ImageSource.camera, imageQuality: 90);
 
                           if (pickedFile == null) {
                             print('No se selecciono nada');
