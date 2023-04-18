@@ -146,7 +146,6 @@ class ProductsService extends ChangeNotifier {
 
     // validation of response
     if (response.statusCode != 200 && response.statusCode != 201) {
-      print('problema con la peticion');
       return null;
     }
 

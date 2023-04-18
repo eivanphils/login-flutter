@@ -70,11 +70,8 @@ class _ProductScreenBody extends StatelessWidget {
                               source: ImageSource.camera, imageQuality: 90);
 
                           if (pickedFile == null) {
-                            print('No se selecciono nada');
                             return;
                           }
-
-                          print(pickedFile.path);
 
                           productService
                               .udpdateSelectedProductImage(pickedFile.path);
