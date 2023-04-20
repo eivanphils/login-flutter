@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:login_flutter/screens/screens.dart';
 import 'package:login_flutter/theme/app_theme.dart';
-import 'package:login_flutter/utils/rut_validator.dart';
+import 'package:login_flutter/utils/utils.dart';
 import 'package:login_flutter/widgets/widgets.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -87,7 +87,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         keyboardType: TextInputType.emailAddress,
                         onChange: (value) => print,
                         validator: (value) {
-                          return value!.length < 3
+                          return !EmailValidator.isValid(value)
                               ? 'Por favor ingrese un correo válido'
                               : null;
                         }),
@@ -135,10 +135,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     primary: AppTheme.primaryColor,
                                     elevation: 0),
                               ),
-                              const SizedBox(height: 10,),
+                              const SizedBox(
+                                height: 10,
+                              ),
                               ElevatedButton(
                                 onPressed: () => Navigator.pop(context),
-                                child: const Button(label: 'Volver',),
+                                child: const Button(
+                                  label: 'Volver',
+                                ),
                                 style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
