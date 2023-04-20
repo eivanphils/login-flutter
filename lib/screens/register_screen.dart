@@ -21,14 +21,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       body: AuthBackground(
           child: SingleChildScrollView(
-            child: Column(
-                  children: [
+        child: Column(
+          children: [
             const SizedBox(
               height: 210,
             ),
             CardContainer(
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                 child: Column(
                   children: [
                     Text(
@@ -38,35 +39,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-          
                     CustomInputField(
-                      labelText: 'Nombre',
-                      hintText: 'Ingresa tu nombre',
-                      prefixIcon: Icons.person,
-                      onChange: (value) => print,
-                      validator: (value) {
-                        return value!.length < 3 ? 'Por favor ingrese un nombre válido' : null;
-                      }
-                    ),
-          
+                        labelText: 'Nombre',
+                        hintText: 'Ingresa tu nombre',
+                        prefixIcon: Icons.person,
+                        onChange: (value) => print,
+                        validator: (value) {
+                          return value!.length < 3
+                              ? 'Por favor ingrese un nombre válido'
+                              : null;
+                        }),
                     const SizedBox(
                       height: 15,
                     ),
-                  
                     CustomInputField(
-                      labelText: 'Apellido',
-                      hintText: 'Ingresa tu apellido',
-                      prefixIcon: Icons.person,
-                      onChange: (value) => print,
-                      validator: (value) {
-                        return value!.length < 3 ? 'Por favor ingrese un apellido válido' : null;
-                      }
-                    ),
-          
+                        labelText: 'Apellido',
+                        hintText: 'Ingresa tu apellido',
+                        prefixIcon: Icons.person,
+                        onChange: (value) => print,
+                        validator: (value) {
+                          return value!.length < 3
+                              ? 'Por favor ingrese un apellido válido'
+                              : null;
+                        }),
                     const SizedBox(
                       height: 15,
                     ),
-                  
                     CustomInputField(
                       prefixIcon: Icons.person,
                       labelText: 'RUT',
@@ -79,37 +77,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return null;
                       },
                     ),
-          
                     const SizedBox(
                       height: 15,
                     ),
-                  
                     CustomInputField(
-                      labelText: 'Correo',
-                      hintText: 'Ingresa tu correo',
-                      prefixIcon: Icons.email,
-                      keyboardType: TextInputType.emailAddress,
-                      onChange: (value) => print,
-                      validator: (value) {
-                        return value!.length < 3 ? 'Por favor ingrese un correo válido' : null;
-                      }
-                    ),
-          
+                        labelText: 'Correo',
+                        hintText: 'Ingresa tu correo',
+                        prefixIcon: Icons.email,
+                        keyboardType: TextInputType.emailAddress,
+                        onChange: (value) => print,
+                        validator: (value) {
+                          return value!.length < 3
+                              ? 'Por favor ingrese un correo válido'
+                              : null;
+                        }),
                     const SizedBox(
                       height: 15,
                     ),
-                  
                     CustomInputField(
-                      labelText: 'Telefono',
-                      hintText: 'Ingresa tu telefono',
-                      prefixIcon: Icons.phone,
-                      keyboardType: TextInputType.number,
-                      onChange: (value) => print,
-                      validator: (value) {
-                        return value!.length < 3 ? 'Por favor ingrese un telefono válido' : null;
-                      }
-                    ),
-          
+                        labelText: 'Telefono',
+                        hintText: 'Ingresa tu telefono',
+                        prefixIcon: Icons.phone,
+                        keyboardType: TextInputType.number,
+                        onChange: (value) => print,
+                        validator: (value) {
+                          return value!.length < 3
+                              ? 'Por favor ingrese un telefono válido'
+                              : null;
+                        }),
                     const SizedBox(
                       height: 20,
                     ),
@@ -117,29 +112,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ? const CircularProgressIndicator(
                             color: AppTheme.primaryColor,
                           )
-                        : ElevatedButton(
-                            onPressed: () async {
-                              FocusScope.of(context).unfocus();
-          
-                              _isLoading = true;
-          
-                              await Future.delayed(const Duration(seconds: 3));
-          
-                              _isLoading = false;
-          
-                              Navigator.pop(context, LoginScreen.routeName);
-                            },
-                            child: Container(
-                              width: double.infinity,
-                                padding: const EdgeInsets.symmetric(vertical: 15),
-                                child: Center(child: Text('Crear cuenta'.toUpperCase()))),
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                primary: AppTheme.primaryColor,
-                                elevation: 0),
+                        : Column(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () async {
+                                  FocusScope.of(context).unfocus();
+
+                                  _isLoading = true;
+
+                                  await Future.delayed(
+                                      const Duration(seconds: 3));
+
+                                  _isLoading = false;
+
+                                  Navigator.pop(context, LoginScreen.routeName);
+                                },
+                                child: const Button(label: 'Crear cuenta'),
+                                style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    primary: AppTheme.primaryColor,
+                                    elevation: 0),
+                              ),
+                              const SizedBox(height: 10,),
+                              ElevatedButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Button(label: 'Volver',),
+                                style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    primary: AppTheme.secondaryColor,
+                                    elevation: 0),
+                              ),
+                            ],
                           ),
-          
                     const SizedBox(
                       height: 15,
                     ),
@@ -147,9 +155,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
             )
-                  ],
-                ),
-          )),
+          ],
+        ),
+      )),
     );
+  }
+}
+
+class Button extends StatelessWidget {
+  final String label;
+
+  const Button({
+    Key? key,
+    required this.label,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        child: Center(child: Text(label.toUpperCase())));
   }
 }
