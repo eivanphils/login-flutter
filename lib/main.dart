@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:login_flutter/screens/screens.dart';
 import 'package:login_flutter/services/services.dart';
 import 'package:login_flutter/theme/app_theme.dart';
+import 'package:login_flutter/providers/providers.dart';
 
 void main() {
   runApp(
@@ -18,7 +19,8 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ProductsService())
+        ChangeNotifierProvider(create: (_) => ProductsService()),
+        ChangeNotifierProvider(create: (_) => RegisterFormProvider())
       ],
       child: const MyApp(),
     );
