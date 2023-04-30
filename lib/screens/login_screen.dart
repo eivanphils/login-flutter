@@ -5,8 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:login_flutter/screens/screens.dart';
 import 'package:login_flutter/providers/providers.dart';
 import 'package:login_flutter/theme/app_theme.dart';
-import 'package:login_flutter/utils/rut_validator.dart';
+// import 'package:login_flutter/utils/rut_validator.dart';
 import 'package:login_flutter/widgets/widgets.dart';
+import 'package:login_flutter/utils/utils.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = 'login';
@@ -96,18 +97,29 @@ class _LoginForm extends StatelessWidget {
         key: loginForm.formKey,
         child: Column(
           children: [
-            CustomInputField(
-              prefixIcon: Icons.person,
-              labelText: 'RUT',
-              hintText: 'Ingresa tu RUT',
-              onChange: (value) => loginForm.rut = value!,
+            // CustomInputField(
+            //   prefixIcon: Icons.person,
+            //   labelText: 'RUT',
+            //   hintText: 'Ingresa tu RUT',
+            //   onChange: (value) => loginForm.rut = value!,
+            //   validator: (value) {
+            //     if (!RutValidator.isValidRut(value!)) {
+            //       return 'Por favor ingrese un RUT válido';
+            //     }
+            //     return null;
+            //   },
+            // ),
+          CustomInputField(
+              labelText: 'Correo',
+              hintText: 'Ingresa tu correo',
+              prefixIcon: Icons.email,
+              keyboardType: TextInputType.emailAddress,
+              onChange: (value) => loginForm.email = value!,
               validator: (value) {
-                if (!RutValidator.isValidRut(value!)) {
-                  return 'Por favor ingrese un RUT válido';
-                }
-                return null;
-              },
-            ),
+                return !EmailValidator.isValid(value)
+                    ? 'Por favor ingrese un correo válido'
+                    : null;
+              }),
 
             const SizedBox(
               height: 12,
