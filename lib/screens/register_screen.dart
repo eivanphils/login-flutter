@@ -7,6 +7,7 @@ import 'package:login_flutter/theme/app_theme.dart';
 import 'package:login_flutter/utils/utils.dart';
 import 'package:login_flutter/widgets/widgets.dart';
 import 'package:login_flutter/providers/providers.dart';
+import 'package:login_flutter/services/services.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const routeName = 'register';
@@ -48,6 +49,7 @@ class _RegisterForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final registerForm = Provider.of<RegisterFormProvider>(context);
+    final authService = Provider.of<AuthService>(context);
 
     return Form(
       key: registerForm.formKey,
@@ -127,6 +129,22 @@ class _RegisterForm extends StatelessWidget {
                     : null;
               }),
           const SizedBox(
+            height: 15,
+          ),
+          CustomInputField(
+            prefixIcon: Icons.password,
+            labelText: 'Clave',
+            hintText: 'Ingresa tu clave',
+            obscureText: true,
+            keyboardType: TextInputType.number,
+            maxLength: 6,
+            maxLine: 1,
+            onChange: (value) => registerForm.password = value!,
+            validator: (value) {
+              return value!.length < 4 ? 'La clave no es válida' : null;
+            },
+          ),
+          const SizedBox(
             height: 20,
           ),
           registerForm.isLoading
@@ -138,17 +156,27 @@ class _RegisterForm extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () async {
                         FocusScope.of(context).unfocus();
+                        // si utilizo la instancia del provider dentro de un metodo el listen debe ir en false
+                        // final authService = Provider.of<AuthService>(context, listen: false);
+                        //en caso contrario puede ir en true cuando se crea desde el build
 
                         if (!registerForm.isValidForm()) return;
 
                         registerForm.isLoading = true;
 
                         // TODO: cambiar el delayed por el registro de usuario
-                        await Future.delayed(const Duration(seconds: 3));
+                        final String? errorMessage =
+                            await authService.createUser(
+                                registerForm.email, registerForm.password);
 
+                        if (errorMessage == null) {
+                          Navigator.pop(context, LoginScreen.routeName);
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertMessage(errorMessage));
+                        }
                         registerForm.isLoading = false;
-
-                        Navigator.pop(context, LoginScreen.routeName);
                       },
                       child: const Button(label: 'Crear cuenta'),
                       style: ElevatedButton.styleFrom(

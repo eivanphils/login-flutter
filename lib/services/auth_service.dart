@@ -21,7 +21,11 @@ class AuthService extends ChangeNotifier {
     final Map<String, dynamic> decodedResponde = json.decode(response.body);
 
     print(decodedResponde);
-    print(decodedResponde['error']['code']);
-
+    if (decodedResponde.containsKey('idToken')) {
+      // guardar el token en el securedStorage
+      return null;
+    } else {
+      return decodedResponde['error']['message'];
+    }
   }
 }
