@@ -170,7 +170,7 @@ class _RegisterForm extends StatelessWidget {
                                 registerForm.email, registerForm.password);
 
                         if (errorMessage == null) {
-                          Navigator.pop(context, LoginScreen.routeName);
+                          Navigator.pushReplacementNamed(context, HomeScreen.routeName);
                         } else {
                           showDialog(
                               context: context,

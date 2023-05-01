@@ -21,7 +21,10 @@ class HomeScreen extends StatelessWidget {
     if (productsService.isLoading) return const LoadingScreen();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Productos')),
+      appBar: AppBar(
+        title: const Text('Productos'),
+        automaticallyImplyLeading: false,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
