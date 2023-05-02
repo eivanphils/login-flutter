@@ -1,7 +1,8 @@
-import 'package:login_flutter/screens/screens.dart';
+import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 
-import 'package:flutter/material.dart';
+import 'package:login_flutter/screens/screens.dart';
 import 'package:login_flutter/services/services.dart';
 
 class CheckAuthScreen extends StatelessWidget {
@@ -22,11 +23,12 @@ class CheckAuthScreen extends StatelessWidget {
             if (!snapshot.hasData) const CircularProgressIndicator();
 
             Future.microtask(() {
-              if(snapshot.data == '') {
-                 Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
-              } else {
-                Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
-              }
+              Navigator.pushReplacement(context, PageRouteBuilder(
+                pageBuilder: (_, __, ___) => snapshot.data == ''
+                  ? const LoginScreen()
+                  : const HomeScreen(),
+                transitionDuration: const Duration(seconds: 0)
+              ));
             });
 
             return Container();
