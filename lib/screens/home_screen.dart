@@ -15,7 +15,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productsService = Provider.of<ProductsService>(context);
-
+    // no necesito estar escuchando
+    final authService = Provider.of<AuthService>(context, listen: false);
     final List<Product> products = productsService.products;
 
     if (productsService.isLoading) return const LoadingScreen();
@@ -24,6 +25,16 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Productos'),
         automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout_outlined),
+            onPressed: () {
+
+              authService.logout();
+              Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+            },
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -52,12 +63,8 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          productsService.selectedProduct = Product(
-            available: true,
-            description: '',
-            name: '',
-            price: 0
-          );
+          productsService.selectedProduct =
+              Product(available: true, description: '', name: '', price: 0);
           Navigator.pushNamed(context, ProductScreen.routeName);
         },
       ),
