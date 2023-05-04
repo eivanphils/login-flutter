@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Login App',
-      initialRoute: CheckAuthScreen.routeName,
+      initialRoute: LoginScreen.routeName,
       routes: {
         CheckAuthScreen.routeName: (_) => const CheckAuthScreen(),
 

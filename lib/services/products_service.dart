@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -9,6 +10,7 @@ import 'package:login_flutter/models/models.dart';
 
 class ProductsService extends ChangeNotifier {
   final String _baseUrl = 'flutter-apps-50027-default-rtdb.firebaseio.com';
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
 
   final List<Product> products = [];
   // Se le asigna el tipo late ya que luego sera llenada
@@ -55,7 +57,9 @@ class ProductsService extends ChangeNotifier {
   }
 
   Future<String> _getJsonData(String endpoint) async {
-    final url = Uri.https(_baseUrl, endpoint);
+    final url = Uri.https(_baseUrl, endpoint, {
+      'auth': await storage.read(key: 'idToken') ?? ''
+    });
     final response = await http.get(url);
 
     return response.body;
@@ -76,7 +80,9 @@ class ProductsService extends ChangeNotifier {
   }
 
   Future<String> _updateProduct(Product product) async {
-    final url = Uri.https(_baseUrl, 'products/${product.id}.json');
+    final url = Uri.https(_baseUrl, 'products/${product.id}.json', {
+      'auth': await storage.read(key: 'idToken') ?? ''
+    });
 
     final response = await http.put(url, body: productToJson(product));
 
@@ -90,7 +96,9 @@ class ProductsService extends ChangeNotifier {
   }
 
   Future<String> _createProduct(Product product) async {
-    final url = Uri.https(_baseUrl, 'products.json');
+    final url = Uri.https(_baseUrl, 'products.json', {
+      'auth': await storage.read(key: 'idToken') ?? ''
+    });
 
     final response = await http.post(url, body: productToJson(product));
 
@@ -104,7 +112,9 @@ class ProductsService extends ChangeNotifier {
   }
 
   Future deleteProduct(String id) async {
-    final url = Uri.https(_baseUrl, 'products/$id.json');
+    final url = Uri.https(_baseUrl, 'products/$id.json', {
+      'auth': await storage.read(key: 'idToken') ?? ''
+    });
     final response = await http.delete(url);
 
     products.removeWhere((element) => element.id == id);
