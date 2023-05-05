@@ -164,7 +164,6 @@ class _RegisterForm extends StatelessWidget {
 
                         registerForm.isLoading = true;
 
-                        // TODO: cambiar el delayed por el registro de usuario
                         final String? errorMessage =
                             await authService.createUser(
                                 registerForm.email, registerForm.password);
