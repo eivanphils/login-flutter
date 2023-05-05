@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Login App',
-      initialRoute: LoginScreen.routeName,
+      home: const SplashScreen(),
       routes: {
         CheckAuthScreen.routeName: (_) => const CheckAuthScreen(),
 
