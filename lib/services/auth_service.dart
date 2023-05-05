@@ -24,7 +24,6 @@ class AuthService extends ChangeNotifier {
     final response = await http.post(url, body: json.encode(authData));
     final Map<String, dynamic> decodedResponde = json.decode(response.body);
 
-    print(decodedResponde);
     if (decodedResponde.containsKey('idToken')) {
       storage.write(key: 'idToken', value: decodedResponde['idToken']);
       return null;
@@ -47,7 +46,6 @@ class AuthService extends ChangeNotifier {
     final response = await http.post(url, body: json.encode(authData));
     final Map<String, dynamic> decodedResponde = json.decode(response.body);
 
-    print(decodedResponde);
     if (decodedResponde.containsKey('idToken')) {
       await storage.write(key: 'idToken', value: decodedResponde['idToken']);
       return null;

@@ -84,9 +84,7 @@ class ProductsService extends ChangeNotifier {
       'auth': await storage.read(key: 'idToken') ?? ''
     });
 
-    final response = await http.put(url, body: productToJson(product));
-
-    final decodedData = response.body;
+    await http.put(url, body: productToJson(product));
 
     // find and update the product by id
     final index = products.indexWhere((element) => element.id == product.id);
