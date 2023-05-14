@@ -55,8 +55,8 @@ class _GreenBox extends StatelessWidget {
       width: double.infinity,
       height: size.height * 0.4,
       decoration: _greenBackground(),
-      child: Stack(
-        children: const [
+      child: const Stack(
+        children: [
           Positioned(
             child: _Bubble(),
             top: 90,

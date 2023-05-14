@@ -7,8 +7,8 @@ class AlertMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Row(
-        children: const [
+      title: const Row(
+        children: [
           Icon(
             Icons.error,
             color: Colors.red,

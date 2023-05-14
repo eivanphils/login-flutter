@@ -20,11 +20,11 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: AuthBackground(
           child: SingleChildScrollView(
         child: Column(
-          children: const [
+          children: [
             SizedBox(
               height: 210,
             ),
@@ -57,7 +57,7 @@ class _RegisterForm extends StatelessWidget {
         children: [
           Text(
             'Registro de nuevo usuario',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(
             height: 30,
@@ -180,8 +180,7 @@ class _RegisterForm extends StatelessWidget {
                       child: const Button(label: 'Crear cuenta'),
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          primary: AppTheme.primaryColor,
+                              borderRadius: BorderRadius.circular(10)), backgroundColor: AppTheme.primaryColor,
                           elevation: 0),
                     ),
                     const SizedBox(
@@ -194,8 +193,7 @@ class _RegisterForm extends StatelessWidget {
                       ),
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          primary: AppTheme.secondaryColor,
+                              borderRadius: BorderRadius.circular(10)), backgroundColor: AppTheme.secondaryColor,
                           elevation: 0),
                     ),
                   ],

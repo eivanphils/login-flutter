@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     Text(
                       'Bienvenido nuevamente',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(
                       height: 20,
@@ -179,8 +179,7 @@ class _LoginForm extends StatelessWidget {
                         child: Text('Enviar'.toUpperCase())),
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        primary: AppTheme.primaryColor,
+                            borderRadius: BorderRadius.circular(10)), backgroundColor: AppTheme.primaryColor,
                         elevation: 0),
                   )
           ],

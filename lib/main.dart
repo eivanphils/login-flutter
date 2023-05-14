@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName: (_) => const HomeScreen(),
         ProductScreen.routeName: (_) => const ProductScreen(),
       },
-      theme: AppTheme.lightTheme
+      theme: AppTheme.lightTheme,
     );
   }
 }
